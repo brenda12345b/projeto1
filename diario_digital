@@ -1,0 +1,962 @@
+from flask import Flask, render_template
+
+app = Flask(__name__)
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+@app.route('/inicio')
+def inicio():
+    return "<h2>Você entrou no Diário Digital!</h2>"
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
+
+from flask import Flask, render_template, request, redirect, url_for
+
+app = Flask(__name__)
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        email = request.form['email']
+        senha = request.form['senha']
+        
+        if email == "teste@exemplo.com" and senha == "123":
+            return redirect(url_for('inicio'))  # Garante que 'inicio' esteja definido
+        else:
+            return "Email ou senha inválidos!"
+    
+    return render_template('login.html')
+
+@app.route('/inicio')
+def inicio():
+    return "<h3>Bem-vindo ao Diário Digital!</h3>"
+
+@app.route('/recuperar')
+def recuperar():
+    return "<h3>Página de recuperação de senha (em construção)</h3>"
+
+
+
+from flask import Flask, render_template
+
+app = Flask(__name__)
+
+@app.route('/inicio')
+def inicio():
+    nome = ""  # Simulação do nome do usuário
+    entradas = [
+        {
+            "titulo": "Almoço em família",
+            "data": "23 de abril de 2024",
+            "texto": "Aproveitei um dia maravilhoso com minha família hoje. Fomos ao parque..."
+        },
+        {
+            "titulo": "Objetivos pessoais",
+            "data": "21 de abril de 2024",
+            "texto": "Estabeleci algumas metas novas para mim mesmo. Primeiro, quero..."
+        },
+        {
+            "titulo": "Saída à noite",
+            "data": "18 de abril de 2024",
+            "texto": "Fui a um restaurante com amigos esta noite. Experimentei um prato novo..."
+        },
+    ]
+    return render_template("inicio.html", nome=nome, entradas=entradas)
+
+
+from flask import Flask, render_template
+
+app = Flask(__name__)
+
+@app.route('/inicio')
+def inicio():
+    nome = "Luna"  # Simulação do nome do usuário
+    entradas = [
+        {
+            "titulo": "Almoço em família",
+            "data": "23 de abril de 2024",
+            "texto": "Aproveitei um dia maravilhoso com minha família hoje. Fomos ao parque..."
+        },
+        {
+            "titulo": "Objetivos pessoais",
+            "data": "21 de abril de 2024",
+            "texto": "Estabeleci algumas metas novas para mim mesmo. Primeiro, quero..."
+        },
+        {
+            "titulo": "Saída à noite",
+            "data": "18 de abril de 2024",
+            "texto": "Fui a um restaurante com amigos esta noite. Experimentei um prato novo..."
+        },
+    ]
+    return render_template("inicio.html", nome=nome, entradas=entradas)
+
+
+
+from flask import Flask, render_template, request, redirect, url_for
+
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return redirect(url_for('login'))
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        email = request.form['email']
+        senha = request.form['senha']
+        if email == "teste@exemplo.com" and senha == "123":
+            return redirect(url_for('inicio'))
+        else:
+            return "Email ou senha inválidos!"
+    return render_template('login.html')
+
+@app.route('/cadastro', methods=['GET', 'POST'])
+def cadastro():
+    if request.method == 'POST':
+        # aqui você pegaria os dados do form e salvaria (JSON ou banco)
+        return redirect(url_for('login'))
+    return render_template('cadastro.html')
+
+@app.route('/inicio')
+def inicio():
+    # Aqui você carregaria entradas e nome do usuário
+    nome = "Luna"
+    entradas = [
+        {"titulo": "Almoço em família", "data": "23 de abril de 2024", "texto": "Aproveitei um dia maravilhoso..."},
+        {"titulo": "Objetivos pessoais", "data": "21 de abril de 2024", "texto": "Estabeleci novas metas..."},
+        {"titulo": "Saída à noite", "data": "18 de abril de 2024", "texto": "Fui a um restaurante..."},
+    ]
+    return render_template('inicio.html', nome=nome, entradas=entradas)
+
+@app.route('/nova_entrada')
+def nova_entrada():
+    return render_template('nova_entrada.html')
+
+@app.route('/visualizar')
+def visualizar():
+    return render_template('visualizar.html')
+
+@app.route('/calendario')
+def calendario():
+    return render_template('calendario.html')
+
+@app.route('/personalizar')
+def personalizar():
+    return render_template('personalizar.html')
+
+@app.route('/ajustes')
+def ajustes():
+    return render_template('ajustes.html')
+
+
+from flask import Flask, render_template, request, redirect, url_for
+
+app = Flask(__name__)
+
+# Lista temporária para simular "banco de dados"
+entradas = []
+
+@app.route('/nova_entrada', methods=['GET', 'POST'])
+def nova_entrada():
+    if request.method == 'POST':
+        titulo = request.form['titulo']
+        texto = request.form['texto']
+        humor = request.form['humor']
+
+        nova = {
+            'titulo': titulo,
+            'texto': texto,
+            'humor': humor,
+            'data': '12 de maio de 2025'
+        }
+
+        entradas.append(nova)
+        return redirect(url_for('inicio'))
+
+    return render_template('nova_entrada.html')
+
+@app.route('/')
+def inicio():
+    nome = ""
+    return render_template('inicio.html', nome=nome, entradas=entradas)
+
+
+@app.route("/nova_entrada", methods=["GET", "POST"])
+def nova_entrada():
+    if request.method == "POST":
+        # salvar dados aqui
+        return redirect(url_for("inicio"))
+    return render_template("nova_entrada.html", mostrar_voltar=True, voltar_para="/")
+
+
+
+from flask import Flask, render_template
+
+app = Flask(__name__)
+
+@app.route('/')
+def inicio():
+    return render_template('inicio.html')
+
+@app.route('/visualizacao')
+def visualizacao():
+    return render_template('visualizacao.html')
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
+@app.route('/calendario')
+def calendario():
+    return render_template('calendario.html')
+
+
+from flask import Flask, render_template, request, redirect
+import json
+import os
+
+app = Flask(__name__)
+
+CAMINHO_JSON = 'personalizacao.json'
+
+def carregar_tema():
+    if os.path.exists(CAMINHO_JSON):
+        with open(CAMINHO_JSON, 'r') as f:
+            return json.load(f)
+    return {"cor_tema": "#8a4dff", "modo_noturno": False}
+
+def salvar_tema(dados):
+    with open(CAMINHO_JSON, 'w') as f:
+        json.dump(dados, f)
+
+@app.route('/personalizar', methods=['GET', 'POST'])
+def personalizar():
+    tema = carregar_tema()
+    if request.method == 'POST':
+        tema['cor_tema'] = request.form.get('cor_tema')
+        tema['modo_noturno'] = 'modo_noturno' in request.form
+        salvar_tema(tema)
+        return redirect('/')
+    return render_template('personalizar.html', tema=tema)
+
+
+from flask import Flask, render_template, redirect, url_for
+import json
+import os
+
+app = Flask(__name__)
+
+CONFIG_FILE = 'config.json'
+
+# Função para carregar configurações do JSON
+def carregar_config():
+    if not os.path.exists(CONFIG_FILE):
+        # Configuração padrão
+        config_padrao = {"cor_primaria": "#8a4dff", "modo_noturno": False}
+        with open(CONFIG_FILE, 'w') as f:
+            json.dump(config_padrao, f)
+        return config_padrao
+    with open(CONFIG_FILE, 'r') as f:
+        return json.load(f)
+
+@app.route('/')
+def inicio():
+    config = carregar_config()
+    return render_template('inicio.html', config=config, nome='Luna', entradas=[
+        {"titulo": "Almoço em família", "data": "23 de abril de 2024", "texto": "Aproveitei um dia maravilhoso com minha família hoje. Fomos a..."},
+        {"titulo": "Objetivos pessoais", "data": "21 de abril de 2024", "texto": "Estabeleci algumas metas novas para mim mesmo. Primeiro, quero..."},
+        {"titulo": "Saída à noite", "data": "18 de abril de 2024", "texto": "Fui a um restaurante com amigos à noite. Experimentei um prato..."}
+    ])
+
+from flask import Flask, render_template, request, redirect, url_for
+import json
+
+app = Flask(__name__)
+
+def carregar_config():
+    with open('config.json', 'r') as f:
+        return json.load(f)
+
+@app.route('/')
+def inicio():
+    config = carregar_config()
+    nome = "Usuário"
+    entradas = [
+        {"titulo": "Dia produtivo", "data": "2025-05-13", "texto": "Hoje fiz muitas coisas importantes..."},
+        {"titulo": "Reflexão", "data": "2025-05-12", "texto": "Estava pensando sobre como melhorar..."},
+    ]
+    return render_template('inicio.html', nome=nome, entradas=entradas, config=config)
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
+
+from flask import Flask, render_template, request, redirect
+import json
+
+app = Flask(__name__)
+
+# Arquivo JSON com tema
+CAMINHO_JSON = 'dados/tema.json'
+
+def carregar_tema():
+    try:
+        with open(CAMINHO_JSON, 'r') as f:
+            return json.load(f)
+    except:
+        return {"nome": "Tema", "cor_primaria": "#9b5de5", "modo_noturno": False}
+
+def salvar_tema(dados):
+    with open(CAMINHO_JSON, 'w') as f:
+        json.dump(dados, f)
+
+@app.route("/personalizar", methods=["GET", "POST"])
+def personalizar():
+    tema = carregar_tema()
+    if request.method == "POST":
+        tema['nome'] = request.form.get("tema_nome", "Tema")
+        tema['cor_primaria'] = request.form.get("cor", tema['cor_primaria'])
+        tema['modo_noturno'] = True if request.form.get("modo_noturno") else False
+        salvar_tema(tema)
+        return redirect("/personalizar")
+    return render_template("personalizacao.html", tema=tema)
+
+if __name__ == "__main__":
+    app.run(debug=True)
+
+
+{
+    "cor_primaria": "#8a4dff",
+    "modo_noturno": false
+  }
+{
+    "nome": "Tema",
+    "cor_primaria": "#9b5de5",
+}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Diário Digital</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+      background-color: #f7f5fb;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      text-align: center;
+      padding: 20px;
+      background-color: #f7f5fb;
+      border: 10px solid #7e6868;
+      width: 100%;
+      max-width: 400px;
+      box-sizing: border-box;
+      height: 90vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .logo {
+      font-size: 64px;
+      font-weight: bold;
+      color: #a259ff;
+      margin-bottom: 20px;
+    }
+
+    .boas-vindas {
+      font-size: 20px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 40px;
+    }
+
+    .btn-entrar {
+      background-color: #a259ff;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      box-shadow: 2px 2px 0 #6a40b5;
+      transition: 0.2s;
+    }
+
+    .btn-entrar:hover {
+      background-color: #8e48d0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo">DD</div>
+    <div class="boas-vindas">Bem-vindo ao<br>Diário Digital</div>
+    <form action="/inicio">
+      <button type="submit" class="btn-entrar">Entrar</button>
+    </form>
+  </div>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: #f8f4ff;
+            padding: 1rem;
+        }
+        h1 {
+            color: #8a4dff;
+            text-align: center;
+        }
+        form {
+            background: white;
+            padding: 1rem;
+            border-radius: 10px;
+            max-width: 300px;
+            margin: 1rem auto;
+        }
+        input {
+            width: 100%;
+            margin-bottom: 1rem;
+            padding: 0.5rem;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background-color: #c99bff;
+            color: white;
+            border: none;
+            padding: 0.7rem;
+            width: 100%;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        a {
+            display: inline-block;
+            margin-top: 1rem;
+            text-align: center;
+            width: 100%;
+            color: #8a4dff;
+        }
+    </style>
+</head>
+<body>
+    <h1>Diário Digital</h1>
+    <form method="POST">
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="password" name="senha" placeholder="Senha" required>
+        <button type="submit">Entrar</button>
+        <a href="{{ url_for('recuperar') }}">Esqueci a senha</a><br>
+        <a href="{{ url_for('Cadastro') }}">Cadastrar</a>
+    </form>
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: #f8f4ff;
+            padding: 1rem;
+        }
+        h1 {
+            color: #8a4dff;
+            text-align: center;
+        }
+        form {
+            background: white;
+            padding: 1rem;
+            border-radius: 10px;
+            max-width: 300px;
+            margin: 1rem auto;
+        }
+        input {
+            width: 100%;
+            margin-bottom: 1rem;
+            padding: 0.5rem;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background-color: #c99bff;
+            color: white;
+            border: none;
+            padding: 0.7rem;
+            width: 100%;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Diário Digital</h1>
+    <form method="POST">
+        <input type="text" name="nome" placeholder="Nome" required>
+        <input type="text" name="sobrenome" placeholder="Sobrenome" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="password" name="senha" placeholder="Senha" required>
+        <input type="password" name="confirmar" placeholder="Redefinir Senha" required>
+        <button type="submit">Cadastrar</button>
+    </form>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Diário Digital</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: {{ '#121212' if config.modo_escuro else '#f8f4ff' }};
+            color: {{ 'white' if config.modo_escuro else 'black' }};
+            padding: 1rem;
+        }
+
+        h1 {
+            color: {{ config.cor_primaria }};
+        }
+
+        .motivacao {
+            background-color: {{ '#1e1e1e' if config.modo_escuro else 'white' }};
+            border-radius: 10px;
+            padding: 0.8rem;
+            margin: 1rem 0;
+            text-align: center;
+            color: {{ 'white' if config.modo_escuro else 'black' }};
+        }
+
+        .entrada {
+            background-color: {{ '#2a2a2a' if config.modo_escuro else 'white' }};
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            color: {{ 'white' if config.modo_escuro else 'black' }};
+        }
+
+        .fab-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+        }
+
+        .fab {
+            background-color: {{ config.cor_primaria }};
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            font-size: 30px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transition: transform 0.3s;
+        }
+
+        .fab-options {
+            display: none;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .fab-options a {
+            background-color: {{ config.cor_primaria }};
+            color: white;
+            padding: 6px 12px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 14px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+
+        .fab-container.show .fab-options {
+            display: flex;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Olá, {{ nome }}!</h1>
+
+    <div class="motivacao">
+        Você é mais forte do que imagina.
+    </div>
+
+    <h2>Entradas recentes</h2>
+
+    {% for entrada in entradas %}
+    <div class="entrada">
+        <strong>{{ entrada.titulo }}</strong><br>
+        <small>{{ entrada.data }}</small><br>
+        <p>{{ entrada.texto[:60] }}...</p>
+    </div>
+    {% endfor %}
+
+    <div class="fab-container" id="fabContainer">
+        <div class="fab-options">
+            <a href="/nova_entrada">Nova Entrada</a>
+            <a href="/visualizacao">Visualização</a>
+            <a href="/calendario">Calendário</a>
+            <a href="/personalizar">Personalizar</a>
+            <a href="/ajustes">Ajustes</a>
+        </div>
+        <button class="fab" onclick="toggleFab()">+</button>
+    </div>
+
+    <script>
+        function toggleFab() {
+            const fab = document.getElementById("fabContainer");
+            fab.classList.toggle("show");
+        }
+    </script>
+
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Nova Entrada</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: {{ 'black' if modo_escuro else '#f8f4ff' }};
+            color: {{ 'white' if modo_escuro else 'black' }};
+            padding: 1rem;
+        }
+
+        .voltar {
+            text-decoration: none;
+            font-size: 20px;
+            color: {{ cor_primaria }};
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .voltar svg {
+            vertical-align: middle;
+        }
+
+        h1 {
+            color: {{ cor_primaria }};
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            border: none;
+        }
+
+        .emocoes {
+            display: flex;
+            justify-content: space-between;
+            margin: 1rem 0;
+        }
+
+        .emocoes span {
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        button {
+            width: 100%;
+            padding: 0.7rem;
+            background-color: {{ cor_primaria }};
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <a href="/" class="voltar">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="{{ cor_primaria }}" viewBox="0 0 24 24">
+            <path d="M15 18l-6-6 6-6"/>
+        </svg>
+    </a>
+
+    <h1>Nova Entrada</h1>
+
+    <form method="post">
+        <input type="text" name="titulo" placeholder="Título" required>
+        <textarea name="texto" rows="6" placeholder="Escreva aqui..." required></textarea>
+
+        <div class="emocoes">
+            <span>🙂</span>
+            <span>😐</span>
+            <span>😠</span>
+        </div>
+
+        <button type="submit">Salvar</button>
+    </form>
+
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Calendário</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: {{ 'black' if modo_escuro else '#f8f4ff' }};
+            color: {{ 'white' if modo_escuro else 'black' }};
+            padding: 1rem;
+        }
+
+        .voltar {
+            text-decoration: none;
+            font-size: 20px;
+            color: {{ cor_primaria }};
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .voltar svg {
+            vertical-align: middle;
+        }
+
+        h1 {
+            color: {{ cor_primaria }};
+        }
+
+        .data {
+            margin: 1rem 0;
+            padding: 1rem;
+            background-color: {{ '#222' if modo_escuro else 'white' }};
+            border-radius: 10px;
+        }
+
+        .data strong {
+            color: {{ cor_primaria }};
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Botão de voltar -->
+    <a href="/" class="voltar">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="{{ cor_primaria }}" viewBox="0 0 24 24">
+            <path d="M15 18l-6-6 6-6"/>
+        </svg>
+    </a>
+
+    <h1>Calendário de Entradas</h1>
+
+    {% for entrada in entradas %}
+    <div class="data">
+        <strong>{{ entrada.data }}</strong><br>
+        {{ entrada.titulo }}
+    </div>
+    {% endfor %}
+
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Tela de personalização</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: {{ 'black' if tema['modo_noturno'] else '#f3edf7' }};
+            color: {{ 'white' if tema['modo_noturno'] else '#000' }};
+            padding: 1rem;
+        }
+
+        .voltar {
+            text-decoration: none;
+            font-size: 20px;
+            color: {{ tema['cor_primaria'] }};
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .voltar svg {
+            vertical-align: middle;
+        }
+
+        h1 {
+            color: {{ tema['cor_primaria'] }};
+        }
+
+        input[type="text"] {
+            font-size: 24px;
+            padding: 10px;
+            width: 90%;
+            margin-bottom: 1rem;
+        }
+
+        .cores {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .cor {
+            width: 50px;
+            height: 50px;
+            border-radius: 5px;
+            cursor: pointer;
+            border: 3px solid transparent;
+        }
+
+        .cor.selecionada {
+            border: 3px solid #333;
+        }
+
+        .modo-noturno {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #ccc;
+            padding: 5px 10px;
+            border-radius: 10px;
+            width: fit-content;
+        }
+    </style>
+</head>
+<body>
+    <a href="/" class="voltar">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="{{ tema['cor_primaria'] }}" viewBox="0 0 24 24">
+            <path d="M15 18l-6-6 6-6"/>
+        </svg>
+    </a>
+
+    <h1>Tela de personalização</h1>
+
+    <form method="POST">
+        <input type="text" name="tema_nome" placeholder="Tema" value="{{ tema['nome'] }}">
+
+        <div class="cores">
+            <button name="cor" value="#9b5de5" class="cor" style="background-color:#9b5de5;"></button>
+            <button name="cor" value="#dcdcdc" class="cor" style="background-color:#dcdcdc;"></button>
+            <button name="cor" value="#000000" class="cor" style="background-color:#000000;"></button>
+        </div>
+
+        <div class="modo-noturno">
+            <label>🌙 Modo noturno</label>
+            <input type="checkbox" name="modo_noturno" {{ 'checked' if tema['modo_noturno'] else '' }}>
+        </div>
+
+        <br><br>
+        <button type="submit">Salvar</button>
+    </form>
+</body>
+</html>
+
+
+
+  <!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Ajustes</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: {{ 'black' if modo_escuro else '#f8f4ff' }};
+            color: {{ 'white' if modo_escuro else 'black' }};
+            padding: 1rem;
+        }
+
+        .voltar {
+            text-decoration: none;
+            font-size: 20px;
+            color: {{ cor_primaria }};
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .voltar svg {
+            vertical-align: middle;
+        }
+
+        h1 {
+            color: {{ cor_primaria }};
+        }
+
+        .btn-ajuste {
+            background-color: {{ '#333' if modo_escuro else '#ddd' }};
+            color: {{ 'white' if modo_escuro else 'black' }};
+            border: 1px solid #aaa;
+            padding: 10px;
+            width: 100%;
+            border-radius: 8px;
+            margin: 8px 0;
+            text-align: left;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .btn-ajuste:hover {
+            background-color: {{ cor_primaria }};
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    
+    <a href="/" class="voltar">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="{{ cor_primaria }}" viewBox="0 0 24 24">
+            <path d="M15 18l-6-6 6-6"/>
+        </svg>
+    </a>
+
+    <h1>Tela de ajustes</h1>
+
+    <button class="btn-ajuste">Alterar nome</button>
+    <button class="btn-ajuste">Backup</button>
+    <button class="btn-ajuste">Senha</button>
+    <button class="btn-ajuste">Sair</button>
+
+</body>
+</html>
+
+
+
+
+    
+
+
+
+
+
